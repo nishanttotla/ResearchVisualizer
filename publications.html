@@ -50,8 +50,8 @@ d3.json("publications.json", function(error, graph) {
     .enter().append("svg:marker")    // This section adds in the arrows
     .attr("id", String)
     .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
+    .attr("refX", 0)
+    .attr("refY", 0)
     .attr("markerWidth", 6)
     .attr("markerHeight", 6)
     .attr("orient", "auto")
@@ -63,7 +63,7 @@ d3.json("publications.json", function(error, graph) {
     .data(force.links())
     .enter().append("svg:path")
     .attr("class", "link")
-    .attr("marker-end", "url(#end)");
+    .attr("marker-mid", "url(#end)");
 
   // define the nodes
   var node = svg.selectAll(".node")
@@ -88,9 +88,20 @@ d3.json("publications.json", function(error, graph) {
       var dx = d.target.x - d.source.x,
         dy = d.target.y - d.source.y,
         dr = Math.sqrt(dx * dx + dy * dy);
+        midx = (d.source.x + d.target.x)/2.0;
+        midy = (d.source.y + d.target.y)/2.0;
+      // return "M" +
+      //   d.source.x + "," +
+      //   d.source.y + "A" +
+      //   dr + "," + dr + " 0 0,1 " +
+      //   d.target.x + "," +
+      //   d.target.y;
       return "M" +
         d.source.x + "," +
         d.source.y + "A" +
+        dr + "," + dr + " 0 0,1 " +
+        midx + "," +
+        midy + "A" +
         dr + "," + dr + " 0 0,1 " +
         d.target.x + "," +
         d.target.y;
