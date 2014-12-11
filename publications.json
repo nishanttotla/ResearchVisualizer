@@ -1,10 +1,10 @@
 {
   "nodes":[
-    {"name":"Harry"},
-    {"name":"Sally"},
-    {"name":"Mario"},
-    {"name":"Alice"},
-    {"name":"James"}
+    {"id":0,"title":"Scala","authors":["Jack","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2013},
+    {"id":1,"title":"C++","authors":["Kitty"],"abstract":"","keywords":[],"type":0,"venue":"PLDI","year":2012},
+    {"id":2,"title":"Haskell","authors":["Kitty","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2011},
+    {"id":3,"title":"Java","authors":["Vikas","Jack","Kitty"],"abstract":"","keywords":[],"type":0,"venue":"PLDI","year":2012},
+    {"id":4,"title":"Python","authors":["Kitty","Alex"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2013}
   ],
   "links":[
     {"source":0,"target":1,"value":1.2},

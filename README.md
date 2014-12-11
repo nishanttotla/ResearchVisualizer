@@ -6,14 +6,17 @@ A tool for visualizing and exploring research publications. Given the vast colle
 The tool stores publication metadata as a json file with the following schema:
 
 {
+  "id" : Int,
   "title" : String,
   "authors" : List<String>,
   "abstract" : String,
   "keywords" : Option[List<String>],
-  "conference" : Option[String],
-  "journal" : Option[String],
+  "type" : Int,
+  "venue" : String,
   "year" : Int
 }
+
+Type encodes the type of publication (0-conference, 1-journal, 2-book)
 
 Citations are stored as links between papers
 
