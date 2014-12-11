@@ -31,11 +31,13 @@ d3.json("publications.json", function(error, graph) {
   var width = 960,
     height = 500;
 
+  var color = d3.scale.category10();
+
   var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
     .size([width, height])
-    .linkDistance(60)
+    .linkDistance(80)
     .charge(-300)
     .on("tick", tick)
     .start();
@@ -74,7 +76,8 @@ d3.json("publications.json", function(error, graph) {
 
   // add the nodes
   node.append("circle")
-    .attr("r", 5);
+    .attr("r", function(d) { return 5*d.authors.length; })
+    .style("fill", function(d) { return color(d.type); });
 
   // add the text
   node.append("text")
