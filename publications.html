@@ -32,8 +32,6 @@ d3.json("data/publications.json", function(error, graph) {
   var width = 960,
     height = 500;
 
-  var color = d3.scale.category10();
-
   var force = d3.layout.force()
     .nodes(graph.nodes)
     .links(graph.links)
@@ -42,6 +40,8 @@ d3.json("data/publications.json", function(error, graph) {
     .charge(-300)
     .on("tick", tick)
     .start();
+
+  forceGlobal = force;
 
   var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -77,7 +77,7 @@ d3.json("data/publications.json", function(error, graph) {
     .on("mouseout", mouseout)
     .call(force.drag);
 
-  // add the nodes
+  // add the node circles
   node.append("circle")
     .attr("r", function(d) { return 5*d.authors.length; })
     .style("fill", function(d) { return color(d.type); });
