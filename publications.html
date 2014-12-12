@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="d3/d3.js"></script>
+<script src="utils/utils.js"></script>
 <style>
 
 path.link {
@@ -26,7 +27,7 @@ text {
 <script>
 
 // get the data
-d3.json("publications.json", function(error, graph) {
+d3.json("data/publications.json", function(error, graph) {
 
   var width = 960,
     height = 500;
@@ -75,20 +76,6 @@ d3.json("publications.json", function(error, graph) {
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)
     .call(force.drag);
-
-  function mouseover() {
-    d3.select(this).select("circle")
-      .transition()
-      .duration(750)
-      .attr("r", 16);
-  }
-
-  function mouseout() {
-    d3.select(this).select("circle")
-      .transition()
-      .duration(750)
-      .style("fill", "red");
-  }
 
   // add the nodes
   node.append("circle")
