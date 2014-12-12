@@ -72,7 +72,23 @@ d3.json("publications.json", function(error, graph) {
     .data(force.nodes())
     .enter().append("g")
     .attr("class", "node")
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
     .call(force.drag);
+
+  function mouseover() {
+    d3.select(this).select("circle")
+      .transition()
+      .duration(750)
+      .attr("r", 16);
+  }
+
+  function mouseout() {
+    d3.select(this).select("circle")
+      .transition()
+      .duration(750)
+      .style("fill", "red");
+  }
 
   // add the nodes
   node.append("circle")
@@ -96,12 +112,6 @@ d3.json("publications.json", function(error, graph) {
         factor = 1 - Math.sqrt(3)/2,
         arcmidx = midx + factor*dy,
         arcmidy = midy - factor*dx;
-      // return "M" +
-      //   d.source.x + "," +
-      //   d.source.y + "A" +
-      //   dr + "," + dr + " 0 0,1 " +
-      //   d.target.x + "," +
-      //   d.target.y;
 
       // This curve is figured out using some trigonometry
       return "M" +
