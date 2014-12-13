@@ -16,8 +16,8 @@ function mouseover() {
     .select("circle")
     .style("fill", color(3)); // FIX : Color not showing up
 
-  // highlight cited nodes
-  highlightCitedNodes(this.__data__.id)
+  // highlight citing nodes
+  highlightCitingNodes(this.__data__.id)
 }
 
 function mouseout() {
@@ -49,4 +49,35 @@ function highlightCitedNodes(id) {
         return color(d.type);
       }
     });
+}
+
+function highlightCitingNodes(id) {
+  var links = forceGlobal.links();
+  var citingNodes = [];
+  // collect nodes that cite the present node
+  for(i=0; i<links.length; i++) {
+    if(links[i].source.id == id) {
+      citingNodes.push(links[i].target.id);
+    }
+  }
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      if(citingNodes.indexOf(d.id) > -1) {
+        return color(5);
+      } else {
+        return color(d.type);
+      }
+    });
+}
+
+function clickEvent() {
+  // highlight selected node
+  d3.select(this)
+    .select("circle")
+    .style("fill", color(3)); // FIX : Color not showing up
+
+  // highlight citing nodes
+  highlightCitingNodes(this.__data__.id)
 }

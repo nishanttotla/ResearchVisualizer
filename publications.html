@@ -73,8 +73,9 @@ d3.json("data/publications.json", function(error, graph) {
     .data(force.nodes())
     .enter().append("g")
     .attr("class", "node")
-    .on("mouseover", mouseover)
-    .on("mouseout", mouseout)
+    // .on("mouseover", mouseover)
+    // .on("mouseout", mouseout)
+    .on("click", clickEvent)
     .call(force.drag);
 
   // add the node circles
