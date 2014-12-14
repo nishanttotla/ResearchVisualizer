@@ -105,8 +105,17 @@ function clickEvent() {
   // if current node is selected, unselect, else select
   var index = selectedNodes.indexOf(this.__data__.id);
   if(index > -1) {
+    // remove border
+    d3.select(this)
+      .select("circle")
+      .style("stroke-width",0);
     selectedNodes.splice(index,1);
   } else {
+    // make border and highlight cited nodes
+    d3.select(this)
+      .select("circle")
+      .style("stroke-width",2)
+      .style("stroke","black");
     selectedNodes.push(this.__data__.id);
   }
   // highlight citing nodes
