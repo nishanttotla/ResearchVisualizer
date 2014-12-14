@@ -1,6 +1,9 @@
 // global reference for the force directed graph
 var forceGlobal;
 
+// nodes selected on click
+var selectedNodes = [];
+
 // color palette for
 // 0-2=publication types, 3=selected node, 4=cited node, 5=citing node
 var color = d3.scale.category10();
@@ -45,6 +48,27 @@ function highlightCitedNodes(id) {
     .style("fill", function(d) {
       if(citedNodes.indexOf(d.id) > -1) {
         return color(4);
+      } else {
+        return color(d.type);
+      }
+    });
+}
+
+function highlightAllCitedNodesForList(idList) {
+  var links = forceGlobal.links();
+  var citedNodes = [];
+  // collect nodes that are cited by all of the nodes in idList
+  for(i=0; i<links.length; i++) {
+    if(idList.indexOf(links[i].target.id) > -1) {
+      citedNodes.push(links[i].source.id);
+    }
+  }
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      if(citedNodes.indexOf(d.id) > -1) {
+        return "red";
       } else {
         return color(d.type);
       }
