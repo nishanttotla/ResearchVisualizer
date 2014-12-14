@@ -98,10 +98,17 @@ function highlightCitingNodes(id) {
 
 function clickEvent() {
   // highlight selected node
-  d3.select(this)
-    .select("circle")
-    .style("fill", color(3)); // FIX : Color not showing up
+  // d3.select(this)
+  //   .select("circle")
+  //   .style("fill", color(3)); // FIX : Color not showing up
 
+  // if current node is selected, unselect, else select
+  var index = selectedNodes.indexOf(this.__data__.id);
+  if(index > -1) {
+    selectedNodes.splice(index,1);
+  } else {
+    selectedNodes.push(this.__data__.id);
+  }
   // highlight citing nodes
-  highlightCitingNodes(this.__data__.id)
+  highlightAllCitedNodesForList(selectedNodes);
 }
