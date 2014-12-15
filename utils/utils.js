@@ -75,6 +75,39 @@ function highlightAllCitedNodesForList(idList) {
     });
 }
 
+// function to check if publication id1 cites id2 - naive search through all links
+// FIX: needs optimization
+function cites(id1,id2) {
+  var links = forceGlobal.links();
+  for(i=0; i<links.length; i++) {
+    if((links[i].target.id == id1) && (links[i].source.id == id2)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function highlightCommonCitedNodesForList(idList) {
+  var links = forceGlobal.links();
+  var citedNodes = [];
+  // collect nodes that are cited by all of the nodes in idList
+  for(i=0; i<links.length; i++) {
+    if(idList.indexOf(links[i].target.id) > -1) {
+      citedNodes.push(links[i].source.id);
+    }
+  }
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      if(citedNodes.indexOf(d.id) > -1) {
+        return "red";
+      } else {
+        return color(d.type);
+      }
+    });
+}
+
 function highlightCitingNodes(id) {
   var links = forceGlobal.links();
   var citingNodes = [];
