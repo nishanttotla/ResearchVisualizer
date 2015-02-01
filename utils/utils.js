@@ -63,6 +63,7 @@ function highlightAllCitedNodesForList(idList) {
       citedNodes.push(links[i].source.id);
     }
   }
+  // citedNodes list can potentially contain duplicates
   var svg = d3.select("svg");
   var allNodes = svg.selectAll(".node");
   allNodes.select("circle")
@@ -89,7 +90,7 @@ function cites(id1,id2) {
 
 // function to check if publication id is cited by all publications in idList
 function citedByAll(id, idList) {
-  for(i=0; i<idList.length; i++) {
+  for(var i=0; i<idList.length; i++) {
     if(!(cites(idList[i],id))) {
       return false;
     }
@@ -99,24 +100,24 @@ function citedByAll(id, idList) {
 
 // find all common citations for publications in idList
 // FIX: Needs optimization (compute citation lists of all in idList then perform intersections)
+//      one way to optimize is to sort citedNodes and keep only those elements that occur exactly
+//      idList times, because would have been added once for each element in idList
 function highlightCommonCitedNodesForList(idList) {
   var links = forceGlobal.links();
   var citedNodes = [];
   var commonCitedNodes = [];
-  // collect nodes that are cited by all of the nodes in idList
-  for(i=0; i<links.length; i++) {
+  // collect nodes that are cited by all of the nodes in idList (the union)
+  for(var i=0; i<links.length; i++) {
     if(idList.indexOf(links[i].target.id) > -1) {
       citedNodes.push(links[i].source.id);
     }
   }
-
   // FIX: The following loop is buggy. Fix it
-  for(i=0; i<citedNodes.length; i++) {
+  for(var i=0; i<citedNodes.length; i++) {
     if(citedByAll(citedNodes[i],idList)) {
       commonCitedNodes.push(citedNodes[i]);
     }
   }
-  alert(commonCitedNodes);
 
   var svg = d3.select("svg");
   var allNodes = svg.selectAll(".node");
