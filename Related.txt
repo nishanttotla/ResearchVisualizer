@@ -1,0 +1,16 @@
+Related work:
+1. Citeology: http://infosthetics.com/archives/2011/12/citeology_visualizing_the_relationships_between_research_publications.html
+2. Research Lei: http://cs.stanford.edu/people/karpathy/researchlei/
+3. Web of Science: http://thomsonreuters.com/thomson-reuters-web-of-science/
+4.
+
+Questions:
+1. What insight is the tool going after? How to evaluate whether the tool has improved user experience?
+2. What are ways to reduce or prune the dataset? Is this necessary?
+3. Datasets to look at : Zotero, Mendeley, DocEar, EndNote. Is this any better than scraping data from Google Scholar? Search for existing consumable data already available online.
+4. Should the focus be a single/narrow area of research, or focus on interdisciplinary connections?
+5. Sources for publications: http://www.lib.berkeley.edu/ERF/servlet/ERFmain?cmd=articles
+6. More datasets: http://snap.stanford.edu/data/#citnets
+7. Perhaps look at the Mendeley Chrome plugin that parses online metadata and puts it into the desktop app.
+8. Many tools already make it easy to discover the popular publications. Can something be done to make the less famous radical ideas discoverable?
+9. Creating exploration paths to help ease new researchers into particular domains.
