@@ -1,3 +1,21 @@
 1. http://bl.ocks.org/sathomas/11550728 - Great tutorial on D3 force directed layout
 2. http://bl.ocks.org/d3noob/5141278#force.csv - Directional force directed layout
 3. http://stackoverflow.com/questions/15729856/display-an-arrow-head-in-the-middle-of-d3-force-layout-link - Idea for displaying arrows in the middle of curves
+
+Temporary references:
+1. http://vis.berkeley.edu/courses/cs294-10-fa14/wiki/index.php/FP-NishantTotla - wiki project page
+2. http://snap.stanford.edu/data/cit-HepPh.html - physics citation network
+3. https://drive.google.com/file/d/0B6K4S0-tzQ1KUllIMXBKdC1GT2M/view - class presentation
+4. https://en.wikipedia.org/wiki/List_of_academic_databases_and_search_engines - academic databases
+5. academic citation dataset - google for this
+6. http://academia.stackexchange.com/questions/28947/how-do-i-get-a-citation-dataset-with-full-text-articles-in-pdf-format - more info
+7. http://onlinelibrary.wiley.com/doi/10.1111/exsy.12062/abstract - potential reference
+
+D3 references:
+1. Implementation: http://localhost:8888/Git%20Repositories/ResearchVisualizer/publications.html
+2. http://bl.ocks.org/mbostock/4062045
+3. http://bl.ocks.org/d3noob/5141278#force.csv
+4. http://bl.ocks.org/mbostock/2706022
+5. http://bl.ocks.org/sathomas/191a8a302a363ac6a4b0
+6. https://github.com/mbostock/d3/wiki/Force-Layout
+7. http://alignedleft.com/tutorials/d3/using-your-data
