@@ -1,3 +1,5 @@
+Starting server: python -m SimpleHTTPServer 8888 &
+
 1. http://bl.ocks.org/sathomas/11550728 - Great tutorial on D3 force directed layout
 2. http://bl.ocks.org/d3noob/5141278#force.csv - Directional force directed layout
 3. http://stackoverflow.com/questions/15729856/display-an-arrow-head-in-the-middle-of-d3-force-layout-link - Idea for displaying arrows in the middle of curves
