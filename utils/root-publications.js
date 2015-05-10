@@ -15,4 +15,16 @@ function createAdjacencyList() {
   return adjList;
 }
 
-// compute list of roots for all nodes
+// compute list of roots for node id using the adjacency list
+// FIX : Use memoization and compute roots for all nodes at once
+function findRoots(id, adjList) {
+  if(adjList[id].length == 0) {
+    return [id];
+  } else {
+    var roots = [];
+    for(var i=0; i<adjList[id].length; i++) {
+      roots = _.union(roots, findRoots(adjList[id][i], adjList));
+    }
+    return roots;
+  }
+}
