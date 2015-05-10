@@ -33,6 +33,20 @@ function mouseout() {
     .style("fill", function(d) { return color(d.type); })
 }
 
+// color "red" all nodes that are in idList
+function colorNodeList(idList) {
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      if(idList.indexOf(d.id) > -1) {
+        return "red";
+      } else {
+        return color(d.type);
+      }
+    });
+}
+
 function highlightCitingNodes(id) {
   var links = forceGlobal.links();
   var citingNodes = [];
@@ -133,7 +147,7 @@ function highlightCommonCitedNodesForList(idList) {
       citedNodes.push(links[i].source.id);
     }
   }
-  // FIX: The following loop is buggy. Fix it
+
   for(var i=0; i<citedNodes.length; i++) {
     if(citedByAll(citedNodes[i],idList)) {
       commonCitedNodes.push(citedNodes[i]);
@@ -178,3 +192,5 @@ function clickEvent() {
   // highlightAllCitedNodesForList(selectedNodes); // works
   highlightCommonCitedNodesForList(selectedNodes); // works
 }
+
+// FIX : Make functions return take/return only lists, and update colors in a separate function
