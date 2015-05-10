@@ -33,6 +33,27 @@ function mouseout() {
     .style("fill", function(d) { return color(d.type); })
 }
 
+function highlightCitingNodes(id) {
+  var links = forceGlobal.links();
+  var citingNodes = [];
+  // collect nodes that cite the present node
+  for(i=0; i<links.length; i++) {
+    if(links[i].source.id == id) {
+      citingNodes.push(links[i].target.id);
+    }
+  }
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      if(citingNodes.indexOf(d.id) > -1) {
+        return color(5);
+      } else {
+        return color(d.type);
+      }
+    });
+}
+
 function highlightCitedNodes(id) {
   var links = forceGlobal.links();
   var citedNodes = [];
@@ -131,27 +152,6 @@ function highlightCommonCitedNodesForList(idList) {
     });
 }
 
-function highlightCitingNodes(id) {
-  var links = forceGlobal.links();
-  var citingNodes = [];
-  // collect nodes that cite the present node
-  for(i=0; i<links.length; i++) {
-    if(links[i].source.id == id) {
-      citingNodes.push(links[i].target.id);
-    }
-  }
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
-  allNodes.select("circle")
-    .style("fill", function(d) {
-      if(citingNodes.indexOf(d.id) > -1) {
-        return color(5);
-      } else {
-        return color(d.type);
-      }
-    });
-}
-
 function clickEvent() {
   // highlight selected node
   // d3.select(this)
@@ -175,6 +175,6 @@ function clickEvent() {
     selectedNodes.push(this.__data__.id);
   }
   // highlight citing nodes
-  // highlightAllCitedNodesForList(selectedNodes);
-  highlightCommonCitedNodesForList(selectedNodes);
+  // highlightAllCitedNodesForList(selectedNodes); // works
+  highlightCommonCitedNodesForList(selectedNodes); // works
 }

@@ -41,6 +41,7 @@ d3.json("data/publications.json", function(error, graph) {
     .on("tick", tick)
     .start();
 
+  // global variable that keeps track of the force directed graph
   forceGlobal = force;
 
   var svg = d3.select("body").append("svg")
