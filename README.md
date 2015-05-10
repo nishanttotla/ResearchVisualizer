@@ -33,3 +33,8 @@ Then open your browser and go to
 localhost:8888
 
 This will open the index.html visualization.
+
+Dependencies:
+This tool uses the following Javascript libraries:
+1. d3.js (http://d3js.org)
+2. underscore.js (http://underscorejs.org/)

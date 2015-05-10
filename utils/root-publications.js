@@ -1,4 +1,5 @@
 // create adjacency list for the graph, as a list of lists
+// only incoming edges are listed
 function createAdjacencyList() {
   var links = forceGlobal.links();
   var numNodes = forceGlobal.nodes().length;
@@ -13,3 +14,5 @@ function createAdjacencyList() {
   }
   return adjList;
 }
+
+// compute list of roots for all nodes
