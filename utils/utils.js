@@ -1,13 +1,3 @@
-// global reference for the force directed graph
-var forceGlobal;
-
-// nodes selected on click
-var selectedNodes = [];
-
-// color palette for
-// 0-2=publication types, 3=selected node, 4=cited node, 5=citing node
-var color = d3.scale.category10();
-
 function mouseover() {
   // add tooltip
   d3.select(this)
@@ -51,7 +41,7 @@ function highlightCitingNodes(id) {
   var links = forceGlobal.links();
   var citingNodes = [];
   // collect nodes that cite the present node
-  for(i=0; i<links.length; i++) {
+  for(var i=0; i<links.length; i++) {
     if(links[i].source.id == id) {
       citingNodes.push(links[i].target.id);
     }
