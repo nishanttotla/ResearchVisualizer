@@ -24,3 +24,12 @@ Citations are stored as links between papers
   "source" : Int,
   "target" : Int
 }
+
+Running locally:
+Open a terminal and start a local server. A simply python server should work
+python -m SimpleHTTPServer 8888
+
+Then open your browser and go to
+localhost:8888
+
+This will open the index.html visualization.
