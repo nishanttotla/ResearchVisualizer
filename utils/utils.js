@@ -56,16 +56,7 @@ function highlightCitingNodes(id) {
       citingNodes.push(links[i].target.id);
     }
   }
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
-  allNodes.select("circle")
-    .style("fill", function(d) {
-      if(citingNodes.indexOf(d.id) > -1) {
-        return color(5);
-      } else {
-        return color(d.type);
-      }
-    });
+  colorNodeList(citingNodes);
 }
 
 function highlightCitedNodes(id) {
@@ -77,16 +68,7 @@ function highlightCitedNodes(id) {
       citedNodes.push(links[i].source.id);
     }
   }
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
-  allNodes.select("circle")
-    .style("fill", function(d) {
-      if(citedNodes.indexOf(d.id) > -1) {
-        return color(4);
-      } else {
-        return color(d.type);
-      }
-    });
+  colorNodeList(citedNodes);
 }
 
 function highlightAllCitedNodesForList(idList) {
@@ -99,16 +81,7 @@ function highlightAllCitedNodesForList(idList) {
     }
   }
   // citedNodes list can potentially contain duplicates
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
-  allNodes.select("circle")
-    .style("fill", function(d) {
-      if(citedNodes.indexOf(d.id) > -1) {
-        return "red";
-      } else {
-        return color(d.type);
-      }
-    });
+  colorNodeList(citedNodes);
 }
 
 // function to check if publication id1 cites id2 - naive search through all links
@@ -154,16 +127,7 @@ function highlightCommonCitedNodesForList(idList) {
     }
   }
 
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
-  allNodes.select("circle")
-    .style("fill", function(d) {
-      if(commonCitedNodes.indexOf(d.id) > -1) {
-        return "red";
-      } else {
-        return color(d.type);
-      }
-    });
+  colorNodeList(commonCitedNodes);
 }
 
 function clickEvent() {
@@ -192,5 +156,3 @@ function clickEvent() {
   // highlightAllCitedNodesForList(selectedNodes); // works
   highlightCommonCitedNodesForList(selectedNodes); // works
 }
-
-// FIX : Make functions return take/return only lists, and update colors in a separate function
