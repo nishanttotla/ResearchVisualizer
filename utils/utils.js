@@ -37,6 +37,21 @@ function colorNodeList(idList) {
     });
 }
 
+// reset state to original
+function resetGraph() {
+  // reset colors
+  var svg = d3.select("svg");
+  var allNodes = svg.selectAll(".node");
+  allNodes.select("circle")
+    .style("fill", function(d) {
+      return color(d.type);
+    })
+    .style("stroke-width",0);
+
+  // clear selection
+  selectedNodes = [];
+}
+
 function highlightCitingNodes(id) {
   var links = forceGlobal.links();
   var citingNodes = [];
