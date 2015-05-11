@@ -5,6 +5,7 @@
 <script src="utils/globals.js"></script>
 <script src="utils/utils.js"></script>
 <script src="utils/root-publications.js"></script>
+<script src="utils/graph-traversal.js"></script>
 <style>
 
 path.link {
@@ -40,12 +41,12 @@ d3.json("data/publications.json", function(error, graph) {
     .links(graph.links)
     .size([width, height])
     .linkDistance(80)
-    .charge(-300)
+    .charge(-400)
     .on("tick", tick)
     .start();
 
-  // global variable that keeps track of the force directed graph
-  forceGlobal = force;
+  // initialize global variables
+  initializeGlobals(force);
 
   var svg = d3.select("body").append("svg")
     .attr("width", width)

@@ -2,7 +2,7 @@ Related work:
 1. Citeology: http://infosthetics.com/archives/2011/12/citeology_visualizing_the_relationships_between_research_publications.html
 2. Research Lei: http://cs.stanford.edu/people/karpathy/researchlei/
 3. Web of Science: http://thomsonreuters.com/thomson-reuters-web-of-science/
-4.
+4. https://en.wikipedia.org/wiki/List_of_academic_databases_and_search_engines
 
 Questions:
 1. What insight is the tool going after? How to evaluate whether the tool has improved user experience?
