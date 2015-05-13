@@ -6,12 +6,11 @@ Starting server: python -m SimpleHTTPServer 8888 &
 
 Temporary references:
 1. http://vis.berkeley.edu/courses/cs294-10-fa14/wiki/index.php/FP-NishantTotla - wiki project page
-2. http://snap.stanford.edu/data/cit-HepPh.html - physics citation network
-3. https://drive.google.com/file/d/0B6K4S0-tzQ1KUllIMXBKdC1GT2M/view - class presentation
-4. https://en.wikipedia.org/wiki/List_of_academic_databases_and_search_engines - academic databases
-5. academic citation dataset - google for this
-6. http://academia.stackexchange.com/questions/28947/how-do-i-get-a-citation-dataset-with-full-text-articles-in-pdf-format - more info
-7. http://onlinelibrary.wiley.com/doi/10.1111/exsy.12062/abstract - potential reference
+2. https://drive.google.com/file/d/0B6K4S0-tzQ1KUllIMXBKdC1GT2M/view - class presentation
+3. https://en.wikipedia.org/wiki/List_of_academic_databases_and_search_engines - academic databases
+4. academic citation dataset - google for this
+5. http://onlinelibrary.wiley.com/doi/10.1111/exsy.12062/abstract - potential reference
+6. http://link.springer.com/chapter/10.1007%2F11551362_39
 
 D3 references:
 1. Implementation: http://localhost:8888/Git%20Repositories/ResearchVisualizer/publications.html
@@ -21,3 +20,10 @@ D3 references:
 5. http://bl.ocks.org/sathomas/191a8a302a363ac6a4b0
 6. https://github.com/mbostock/d3/wiki/Force-Layout
 7. http://alignedleft.com/tutorials/d3/using-your-data
+
+Dataset references:
+1. http://aminer.org/billboard/citation
+2. https://snap.stanford.edu/data/#citnets
+3. http://libguides.mit.edu/apis
+4. https://github.com/cyardley/DBLP-LinkAnalysis
+5. Crowdsourcing survey paper

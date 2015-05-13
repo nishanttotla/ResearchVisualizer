@@ -1,18 +1,27 @@
+IMMEDIATE TASKS:
 1. Tooltip for publication
-2. Highlight arrows based on selected publication
-3. Look up previous work
-4. Use underscore.js to optimize older code
-5. Memoize root computation
-6. Simplify code structure in utils.js (needs thought)
-7. Add more complex data for the graph
-8. Path from one publication to another
-9. The value of an edge should be defined by the degree of similarity in the two papers (by keywords, authors, etc.)
-10. Allow tuning a graph by edge weight to reflect only stronger relationships
-11. Characterize paths from source to target (by keyword etc.) to find which major ideas have flown along it
-12. Are there intersting sub-structures in the graph (like number of paths from source to target mean something?)
-13. Find influential nodes (given search keywords etc.)
-14. Add separate function to initialize globals
+2. Code to update graph dynamically
+3. Install database
+4. Load data into database
+5. Find a way to retrieve abstracts/keywords
+
+IMPROVEMENTS:
+1. Use underscore.js to optimize older code
+2. Memoize root computation
+3. Simplify code structure in utils.js (needs thought)
+4. Add separate function to initialize globals
+
+
+IDEAS:
+1. Highlight arrows based on selected publication
+2. Path from one publication to another
+3. The value of an edge should be defined by the degree of similarity in the two papers (by keywords, authors, etc.)
+4. Allow tuning a graph by edge weight to reflect only stronger relationships
+5. Characterize paths from source to target (by keyword etc.) to find which major ideas have flown along it
+6. Are there intersting sub-structures in the graph (like number of paths from source to target mean something?)
+7. Find influential nodes (given search keywords etc.)
 
 LONG TERM:
 1. How will the input data be constructed?
 2. Efficiency concerns for large graphs?
+3. Look up related work
