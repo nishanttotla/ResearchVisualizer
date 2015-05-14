@@ -3,7 +3,7 @@ IMMEDIATE TASKS:
 2. Code to filter graph dynamically
 5. Find a way to retrieve abstracts/keywords
 3. Install database
-4. Load data into database
+4. Load data into database (better to maintain two tables - pubs and citations for easy citation search)
 6. Tooltip for publication
 
 IMPROVEMENTS:
