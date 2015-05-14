@@ -1,28 +1,3 @@
-function mouseover() {
-  // add tooltip
-  d3.select(this)
-    .append("text")
-    .text(function(d) { return d.title });
-
-  // highlight selected node
-  d3.select(this)
-    .select("circle")
-    .style("fill", color(3)); // FIX : Color not showing up
-
-  // highlight citing nodes
-  highlightCitingNodes(this.__data__.id)
-}
-
-function mouseout() {
-  // because this text is the 3rd child (circle, text, text)
-  d3.select(this).select("text:nth-child(3)").remove();
-  // reset all colors to original
-  d3.select("svg")
-    .selectAll(".node")
-    .select("circle")
-    .style("fill", function(d) { return color(d.type); })
-}
-
 // color "red" all nodes that are in idList
 function colorNodeList(idList) {
   var svg = d3.select("svg");
@@ -37,8 +12,8 @@ function colorNodeList(idList) {
     });
 }
 
-// reset state to original
-function resetGraph() {
+// reset selections to original
+function resetSelections() {
   // reset colors
   var svg = d3.select("svg");
   var allNodes = svg.selectAll(".node");
