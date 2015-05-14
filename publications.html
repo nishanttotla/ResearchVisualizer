@@ -30,7 +30,7 @@ text {
 <body>
 <script>
   // some temporary test data
-  nodesData = [
+  nodesData1 = [
     {"id":0,"title":"Scala","authors":["Jack","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2013},
     {"id":1,"title":"C++","authors":["Kitty"],"abstract":"","keywords":[],"type":0,"venue":"PLDI","year":2012},
     {"id":2,"title":"Haskell","authors":["Kitty","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2011},
@@ -42,10 +42,7 @@ text {
     {"id":8,"title":"OOK","authors":["Kitty","Vikas"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013}
   ];
 
-  sampleNode = {"id":9,"title":"Julia","authors":["Galen","Vikas","Alex","Mike"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013};
-  sampleLink = {"source":4,"target":8,"value":1};
-
-  linksData = [
+  linksData1 = [
     {"source":0,"target":5,"value":1.2},
     {"source":1,"target":5,"value":1.3},
     {"source":4,"target":5,"value":0.4},
@@ -58,6 +55,9 @@ text {
     {"source":4,"target":7,"value":0.7},
     {"source":8,"target":7,"value":0.7}
   ];
+
+  nodesData = [];
+  linksData = [];
 
   var width = 960,
     height = 500;
@@ -121,7 +121,6 @@ text {
   function tick() {
     // add the curvy lines
     currPaths = svg.selectAll("g path") // first g element contains all links
-    console.log(currPaths[0].length);
     currPaths.attr("d", function(d) {
       var dx = d.target.x - d.source.x,
         dy = d.target.y - d.source.y,
@@ -198,9 +197,41 @@ text {
     force.start();
   }
 
+  var sampleNodesAdded=0;
+  var sampleLinksAdded = 0;
+  function addSampleNode() {
+    if(sampleNodesAdded < nodesData1.length) {
+      addNode(nodesData1[sampleNodesAdded]);
+      sampleNodesAdded++;
+    } else {
+      alert("Sample data set exhausted!");
+    }
+  }
+
+  function addSampleLink() {
+    if(sampleLinksAdded < linksData1.length) {
+      addLink(linksData1[sampleLinksAdded]);
+      sampleLinksAdded++;
+    } else {
+      alert("Sample data set exhausted!");
+    }
+  }
+
+  function removeSampleLink() {
+    if(sampleLinksAdded > 0) {
+      linksData.pop(); update();
+      sampleLinksAdded--;
+    } else {
+      alert("All links removed!");
+    }
+  }
+
 </script>
 
 <button onclick="resetGraph()">Clear</button>
+<button onclick="addSampleNode()">Add Sample Node</button>
+<button onclick="addSampleLink()">Add Sample Link</button>
+<button onclick="removeSampleLink()">Remove Sample Link</button>
 
 </body>
 </html>
