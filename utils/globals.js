@@ -1,10 +1,7 @@
-// global reference for the force directed graph
-var forceGlobal;
-
 // nodes selected on click
 var selectedNodes = [];
 
-// color palette for
+// color palette FIX : needs more well-defined colors
 // 0-2=publication types, 3=selected node, 4=cited node, 5=citing node
 var color = d3.scale.category10();
 
@@ -13,6 +10,5 @@ var adjacencyList = [];
 
 // function to initialize global variables
 function initializeGlobals(force) {
-  forceGlobal = force;
   adjacencyList = createAdjacencyList();
 }

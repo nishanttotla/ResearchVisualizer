@@ -53,7 +53,7 @@ function resetGraph() {
 }
 
 function highlightCitingNodes(id) {
-  var links = forceGlobal.links();
+  var links = force.links();
   var citingNodes = [];
   // collect nodes that cite the present node
   for(var i=0; i<links.length; i++) {
@@ -65,7 +65,7 @@ function highlightCitingNodes(id) {
 }
 
 function highlightCitedNodes(id) {
-  var links = forceGlobal.links();
+  var links = force.links();
   var citedNodes = [];
   // collect nodes that are cited by the present node
   for(var i=0; i<links.length; i++) {
@@ -77,7 +77,7 @@ function highlightCitedNodes(id) {
 }
 
 function highlightAllCitedNodesForList(idList) {
-  var links = forceGlobal.links();
+  var links = force.links();
   var citedNodes = [];
   // collect nodes that are cited by all of the nodes in idList
   for(var i=0; i<links.length; i++) {
@@ -92,7 +92,7 @@ function highlightAllCitedNodesForList(idList) {
 // function to check if publication id1 cites id2 - naive search through all links
 // FIX: needs optimization
 function cites(id1,id2) {
-  var links = forceGlobal.links();
+  var links = force.links();
   for(var i=0; i<links.length; i++) {
     if((links[i].target.id == id1) && (links[i].source.id == id2)) {
       return true;
@@ -116,7 +116,7 @@ function citedByAll(id, idList) {
 //      one way to optimize is to sort citedNodes and keep only those elements that occur exactly
 //      idList times, because would have been added once for each element in idList
 function highlightCommonCitedNodesForList(idList) {
-  var links = forceGlobal.links();
+  var links = force.links();
   var citedNodes = [];
   var commonCitedNodes = [];
   // collect nodes that are cited by all of the nodes in idList (the union)

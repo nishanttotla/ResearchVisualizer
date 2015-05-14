@@ -1,5 +1,5 @@
 function BFS(id) {
-  var numNodes = forceGlobal.nodes().length;
+  var numNodes = force.nodes().length;
 
   // distances stores distance from id. -1 means unreachable or unexplored
   var distances = _.range(numNodes).map(function() { return -1; });
