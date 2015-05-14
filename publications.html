@@ -42,7 +42,8 @@ text {
     {"id":8,"title":"OOK","authors":["Kitty","Vikas"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013}
   ];
 
-  sampleNode = {"id":9,"title":"Julia","authors":["Galen","Vikas","Alex","Mike"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013}
+  sampleNode = {"id":9,"title":"Julia","authors":["Galen","Vikas","Alex","Mike"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013};
+  sampleLink = {"source":4,"target":8,"value":1};
 
   linksData = [
     {"source":0,"target":5,"value":1.2},
@@ -92,9 +93,9 @@ text {
     .attr("d", "M0,-5L10,0L0,5");
 
   // add the links and the arrows
-  var path = svg.append("svg:g").selectAll("path")
+  var path = svg.append("g").selectAll("path")
     .data(force.links())
-    .enter().append("svg:path")
+    .enter().append("path")
     .attr("class", "link")
     .attr("marker-mid", "url(#end)");
 
@@ -120,6 +121,7 @@ text {
   function tick() {
     // add the curvy lines
     currPaths = svg.selectAll("g path") // first g element contains all links
+    console.log(currPaths[0].length);
     currPaths.attr("d", function(d) {
       var dx = d.target.x - d.source.x,
         dy = d.target.y - d.source.y,
@@ -161,7 +163,18 @@ text {
 
   // update the graph after adding/removing nodes/links
   function update() {
+    // update links
+    var newLinks = svg.select("g").selectAll("path") // first g element contains all links
+                    .data(linksData, function(d) { return d.source.id + "-" + d.target.id; });
 
+    var enterLinks = newLinks.enter()
+                      .append("path")
+                      .attr("class", "link")
+                      .attr("marker-mid", "url(#end)");
+
+    var exitLinks = newLinks.exit().remove();
+
+    // update nodes
     var newNodes = svg.selectAll(".node")
                     .data(nodesData, function(d) { return d.id; });
 

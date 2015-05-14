@@ -24,6 +24,7 @@ D3 references:
 9. http://bost.ocks.org/mike/selection/
 10. http://bl.ocks.org/migurski/4601038
 11. http://knowledgestockpile.blogspot.com/2012/01/understanding-selectall-data-enter.html
+12. http://bost.ocks.org/mike/nest/
 
 Dataset references:
 1. http://aminer.org/billboard/citation
