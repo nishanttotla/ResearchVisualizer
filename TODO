@@ -1,10 +1,9 @@
 IMMEDIATE TASKS:
-1. Code to update graph dynamically
-2. Code to filter graph dynamically
-5. Find a way to retrieve abstracts/keywords
+1. Find a way to retrieve abstracts/keywords
+2. Node ids can't be 0-n anymore
 3. Install database
 4. Load data into database (better to maintain two tables - pubs and citations for easy citation search)
-6. Tooltip for publication
+5. Tooltip for publication
 
 IMPROVEMENTS:
 1. Use underscore.js to optimize older code
