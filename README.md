@@ -26,8 +26,7 @@ Citations are stored as links between papers
 }
 
 Running locally:
-Open a terminal and start a local server. A simply python server should work
-python -m SimpleHTTPServer 8888
+Open a terminal and cd to the project directory. Then start a local server. A simply python server should suffice: python -m SimpleHTTPServer 8888
 
 Then open your browser and go to
 localhost:8888

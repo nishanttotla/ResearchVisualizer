@@ -13,13 +13,17 @@ Temporary references:
 6. http://link.springer.com/chapter/10.1007%2F11551362_39
 
 D3 references:
-1. Implementation: http://localhost:8888/Git%20Repositories/ResearchVisualizer/publications.html
-2. http://bl.ocks.org/mbostock/4062045
-3. http://bl.ocks.org/d3noob/5141278#force.csv
-4. http://bl.ocks.org/mbostock/2706022
-5. http://bl.ocks.org/sathomas/191a8a302a363ac6a4b0
-6. https://github.com/mbostock/d3/wiki/Force-Layout
-7. http://alignedleft.com/tutorials/d3/using-your-data
+1. http://bl.ocks.org/mbostock/4062045
+2. http://bl.ocks.org/d3noob/5141278#force.csv
+3. http://bl.ocks.org/mbostock/2706022
+4. http://bl.ocks.org/sathomas/191a8a302a363ac6a4b0
+5. https://github.com/mbostock/d3/wiki/Force-Layout
+6. http://alignedleft.com/tutorials/d3/using-your-data
+7. http://bost.ocks.org/mike/circles/
+8. http://bost.ocks.org/mike/join/
+9. http://bost.ocks.org/mike/selection/
+10. http://bl.ocks.org/migurski/4601038
+11. http://knowledgestockpile.blogspot.com/2012/01/understanding-selectall-data-enter.html
 
 Dataset references:
 1. http://aminer.org/billboard/citation
