@@ -6,5 +6,6 @@ var selectedNodes = [];
 var color = d3.scale.category10();
 
 // adjacencyList for the graph
-// this is a dictionary
+// this is a dictionary that stores a list of incoming node ids against node ids (converted to String)
+// for example, "2332":[121,5322,4,1234]
 var adjacencyList = {};

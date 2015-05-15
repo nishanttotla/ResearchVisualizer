@@ -57,6 +57,7 @@ text {
     {"source":8,"target":7,"value":0.7}
   ];
 
+  lsd = linksData1;
   nodesData = [];
   linksData = [];
 
@@ -168,21 +169,11 @@ text {
     }
   }
 
-  function removeSampleLink() {
-    if(sampleLinksAdded > 0) {
-      linksData.pop(); update();
-      sampleLinksAdded--;
-    } else {
-      alert("All links removed!");
-    }
-  }
-
 </script>
 
 <button onclick="resetSelections()">Clear</button>
 <button onclick="addSampleNode()">Add Sample Node</button>
 <button onclick="addSampleLink()">Add Sample Link</button>
-<button onclick="removeSampleLink()">Remove Sample Link</button>
 
 </body>
 </html>

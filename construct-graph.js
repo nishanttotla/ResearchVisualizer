@@ -8,6 +8,7 @@ function findNodeIndex(id) {
 }
 
 // function to add a node, assumes it does not already exist
+// requires a full node object
 function addNode(newnode) {
   nodesData.push(newnode);
   update();
@@ -34,10 +35,20 @@ function removeNode(nodeId) {
   update();
 }
 
-// assumes that both nodes exist
+// the 'newlink' argument is specified using ids of the objects that the link is incident upon
+// the ids are used to retrieve the indices of the two objects in the node list
+// this must be done because force needs references (objects or indices) to relevant nodes
 function addLink(newlink) {
-  linksData.push(newlink);
-  update();
+  var index1 = findNodeIndex(newlink.source);
+  var index2 = findNodeIndex(newlink.target);
+  newlink.source = index1;
+  newlink.target = index2;
+  if(index1 > -1 && index2 > -1) {
+    linksData.push(newlink);
+    update();
+  } else {
+    alert("One or both nodes not in the graph!");
+  }
 }
 
 // update the graph after adding/removing nodes/links
