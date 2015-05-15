@@ -1,13 +1,12 @@
 // color "red" all nodes that are in idList
 function colorNodeList(idList) {
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
+  var allNodes = Svg.selectAll(".node");
   allNodes.select("circle")
     .style("fill", function(d) {
       if(idList.indexOf(d.id) > -1) {
         return "red";
       } else {
-        return color(d.type);
+        return Color(d.type);
       }
     });
 }
@@ -15,20 +14,19 @@ function colorNodeList(idList) {
 // reset selections to original
 function resetSelections() {
   // reset colors
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
+  var allNodes = Svg.selectAll(".node");
   allNodes.select("circle")
     .style("fill", function(d) {
-      return color(d.type);
+      return Color(d.type);
     })
     .style("stroke-width",0);
 
   // clear selection
-  selectedNodes = [];
+  SelectedNodes = [];
 }
 
 function highlightCitingNodes(id) {
-  var links = force.links();
+  var links = Force.links();
   var citingNodes = [];
   // collect nodes that cite the present node
   for(var i=0; i<links.length; i++) {
@@ -40,7 +38,7 @@ function highlightCitingNodes(id) {
 }
 
 function highlightCitedNodes(id) {
-  var links = force.links();
+  var links = Force.links();
   var citedNodes = [];
   // collect nodes that are cited by the present node
   for(var i=0; i<links.length; i++) {
@@ -52,7 +50,7 @@ function highlightCitedNodes(id) {
 }
 
 function highlightAllCitedNodesForList(idList) {
-  var links = force.links();
+  var links = Force.links();
   var citedNodes = [];
   // collect nodes that are cited by all of the nodes in idList
   for(var i=0; i<links.length; i++) {
@@ -67,7 +65,7 @@ function highlightAllCitedNodesForList(idList) {
 // function to check if publication id1 cites id2 - naive search through all links
 // FIX: needs optimization
 function cites(id1,id2) {
-  var links = force.links();
+  var links = Force.links();
   for(var i=0; i<links.length; i++) {
     if((links[i].target.id == id1) && (links[i].source.id == id2)) {
       return true;
@@ -91,7 +89,7 @@ function citedByAll(id, idList) {
 //      one way to optimize is to sort citedNodes and keep only those elements that occur exactly
 //      idList times, because would have been added once for each element in idList
 function highlightCommonCitedNodesForList(idList) {
-  var links = force.links();
+  var links = Force.links();
   var citedNodes = [];
   var commonCitedNodes = [];
   // collect nodes that are cited by all of the nodes in idList (the union)
@@ -114,25 +112,25 @@ function clickEvent() {
   // highlight selected node
   // d3.select(this)
   //   .select("circle")
-  //   .style("fill", color(3)); // FIX : Color not showing up
+  //   .style("fill", Color(3)); // FIX : Color not showing up
 
   // if current node is selected, unselect, else select
-  var index = selectedNodes.indexOf(this.__data__.id);
+  var index = SelectedNodes.indexOf(this.__data__.id);
   if(index > -1) {
     // remove border
     d3.select(this)
       .select("circle")
       .style("stroke-width",0);
-    selectedNodes.splice(index,1);
+    SelectedNodes.splice(index,1);
   } else {
     // make border and highlight cited nodes
     d3.select(this)
       .select("circle")
       .style("stroke-width",2)
       .style("stroke","black");
-    selectedNodes.push(this.__data__.id);
+    SelectedNodes.push(this.__data__.id);
   }
   // highlight citing nodes
-  // highlightAllCitedNodesForList(selectedNodes); // works
-  highlightCommonCitedNodesForList(selectedNodes); // works
+  // highlightAllCitedNodesForList(SelectedNodes); // works
+  highlightCommonCitedNodesForList(SelectedNodes); // works
 }

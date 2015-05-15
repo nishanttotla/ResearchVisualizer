@@ -3,7 +3,7 @@
 
 // function to search for a node, returns index
 function findNodeIndex(id) {
-  var ids = _.map(nodesData, function(n) { return n.id; });
+  var ids = _.map(NodesData, function(n) { return n.id; });
   return ids.indexOf(id);
 }
 
@@ -13,7 +13,7 @@ function addNode(newnode) {
   if(findNodeIndex(newnode.id) > -1) {
     alert("Node already exists!");
   } else {
-    nodesData.push(newnode);
+    NodesData.push(newnode);
     update();
   }
 }
@@ -22,15 +22,15 @@ function addNode(newnode) {
 function removeNode(nodeId) {
   var index = findNodeIndex(nodeId);
   if(index > -1) {
-    nodesData.splice(index, 1);
+    NodesData.splice(index, 1);
   } else {
     alert("Tried to remove non-existent node!");
   }
   // remove incident edges
   var i=0;
-  while(i < linksData.length) {
-    if(linksData[i].source.id == nodeId || linksData[i].target.id == nodeId) {
-      linksData.splice(i,1);
+  while(i < LinksData.length) {
+    if(LinksData[i].source.id == nodeId || LinksData[i].target.id == nodeId) {
+      LinksData.splice(i,1);
     } else {
       i++;
     }
@@ -49,7 +49,7 @@ function addLink(newlink) {
   newlink.source = index1;
   newlink.target = index2;
   if(index1 > -1 && index2 > -1) {
-    linksData.push(newlink);
+    LinksData.push(newlink);
     update();
   } else {
     alert("One or both nodes not in the graph!");
@@ -59,8 +59,8 @@ function addLink(newlink) {
 // update the graph after adding/removing nodes/links
 function update() {
   // update links
-  var newLinks = svg.select("g").selectAll("path") // first g element contains all links
-                  .data(linksData, function(d) { return d.source.id + "-" + d.target.id; });
+  var newLinks = Svg.select("g").selectAll("path") // first g element contains all links
+                  .data(LinksData, function(d) { return d.source.id + "-" + d.target.id; });
 
   var enterLinks = newLinks.enter()
                     .append("path")
@@ -70,18 +70,18 @@ function update() {
   var exitLinks = newLinks.exit().remove();
 
   // update nodes
-  var newNodes = svg.selectAll(".node")
-                  .data(nodesData, function(d) { return d.id; });
+  var newNodes = Svg.selectAll(".node")
+                  .data(NodesData, function(d) { return d.id; });
 
   var enterNodes = newNodes.enter()
                     .append("g")
                     .attr("class", "node")
                     .on("click", clickEvent)
-                    .call(force.drag);
+                    .call(Force.drag);
 
   enterNodes.append("circle")
     .attr("r", function(d) { return 5*d.authors.length; })
-    .style("fill", function(d) { return color(d.type); });
+    .style("fill", function(d) { return Color(d.type); });
 
   enterNodes.append("text")
     .attr("x", 12)
@@ -90,5 +90,5 @@ function update() {
 
   var exitNodes = newNodes.exit().remove();
 
-  force.start();
+  Force.start();
 }

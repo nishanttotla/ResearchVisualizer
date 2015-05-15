@@ -1,8 +1,8 @@
 // create adjacency list for the graph, as a list of lists
 // only incoming edges are listed
 function createAdjacencyList() {
-  var links = force.links();
-  var numNodes = force.nodes().length;
+  var links = Force.links();
+  var numNodes = Force.nodes().length;
   var adjList = [];
   // initialize the adjacency list
   for(var i=0; i<numNodes; i++) {

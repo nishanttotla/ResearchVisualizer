@@ -1,5 +1,5 @@
 function BFS(id) {
-  var numNodes = force.nodes().length;
+  var numNodes = Force.nodes().length;
 
   // distances stores distance from id. -1 means unreachable or unexplored
   var distances = _.range(numNodes).map(function() { return -1; });
@@ -18,8 +18,7 @@ function BFS(id) {
 
 // color nodes based on distance from a fixed node (temporary function for debugging)
 function colorByDistance(distances) {
-  var svg = d3.select("svg");
-  var allNodes = svg.selectAll(".node");
+  var allNodes = Svg.selectAll(".node");
   allNodes.select("circle")
     .style("fill", function(d) {
       if(distances[d.id] == -1) {

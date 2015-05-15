@@ -8,6 +8,7 @@ IMMEDIATE TASKS:
 5. Tooltip for publication
 
 IMPROVEMENTS:
+0. All variables and functions meant to be used globally must start with a capital letter
 1. Use underscore.js to optimize older code
 2. Memoize root computation
 3. Simplify code structure in utils.js (needs thought)
