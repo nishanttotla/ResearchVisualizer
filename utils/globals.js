@@ -7,8 +7,3 @@ var color = d3.scale.category10();
 
 // adjacencyList for the graph
 var adjacencyList = [];
-
-// function to initialize global variables
-function initializeGlobals(force) {
-  adjacencyList = createAdjacencyList();
-}

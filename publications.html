@@ -72,9 +72,6 @@ text {
     .on("tick", tick)
     .start();
 
-  // initialize global variables
-  initializeGlobals(force);
-
   var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
