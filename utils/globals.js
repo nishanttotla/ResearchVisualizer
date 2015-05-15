@@ -6,4 +6,5 @@ var selectedNodes = [];
 var color = d3.scale.category10();
 
 // adjacencyList for the graph
-var adjacencyList = [];
+// this is a dictionary
+var adjacencyList = {};

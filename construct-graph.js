@@ -1,7 +1,28 @@
-// functions to update graph structure dynamically
+/* functions to update graph structure dynamically
+ */
 
+// function to search for a node, returns index
+function findNodeIndex(id) {
+  var ids = _.map(nodesData, function(n) { return n.id; });
+  return ids.indexOf(id);
+}
+
+// function to add a node, assumes it does not already exist
 function addNode(newnode) {
   nodesData.push(newnode);
+  update();
+}
+
+// function to remove a node by id, also removes incident edges
+function removeNode(nodeId) {
+  var index = findNodeIndex(nodeId);
+  if(index > -1) {
+    nodesData.splice(index, 1);
+  } else {
+    alert("Tried to remove non-existent node!");
+  }
+  // remove incident edges
+  // FIX : Add code to remove incident edges
   update();
 }
 
