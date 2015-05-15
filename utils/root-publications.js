@@ -1,16 +1,33 @@
-// create adjacency list for the graph, as a list of lists
+// create adjacency list for the graph, as a dictionary
 // only incoming edges are listed
-function createAdjacencyList() {
+function CreateIncomingAdjacencyList() {
   var links = Force.links();
-  var numNodes = Force.nodes().length;
-  var adjList = [];
-  // initialize the adjacency list
-  for(var i=0; i<numNodes; i++) {
-    adjList.push([]);
+  var nodes = Force.nodes();
+  var adjList = {};
+
+  for(var i=0; i<nodes.length; i++) {
+    adjList[nodes[i].id.toString()] = [];
   }
 
   for(var i=0; i<links.length; i++) {
-    adjList[links[i].target.id].push(links[i].source.id);
+    adjList[links[i].target.id.toString()].push(links[i].source.id);
+  }
+  return adjList;
+}
+
+// create adjacency list for the graph, as a dictionary
+// only outgoing edges are listed
+function CreateOutgoingAdjacencyList() {
+  var links = Force.links();
+  var nodes = Force.nodes();
+  var adjList = {};
+
+  for(var i=0; i<nodes.length; i++) {
+    adjList[nodes[i].id.toString()] = [];
+  }
+
+  for(var i=0; i<links.length; i++) {
+    adjList[links[i].source.id.toString()].push(links[i].target.id);
   }
   return adjList;
 }

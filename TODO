@@ -1,5 +1,5 @@
 IMMEDIATE TASKS:
-0. Check for duplicate nodes/links while adding
+0. Check for duplicate links while adding links
 0.5. Finalize a proper API for updating the graph
 1. Find a way to retrieve abstracts/keywords
 2. Node ids can't be 0-n anymore
