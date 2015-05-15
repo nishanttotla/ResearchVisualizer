@@ -22,7 +22,15 @@ function removeNode(nodeId) {
     alert("Tried to remove non-existent node!");
   }
   // remove incident edges
-  // FIX : Add code to remove incident edges
+  var i=0;
+  while(i < linksData.length) {
+    if(linksData[i].source.id == nodeId || linksData[i].target.id == nodeId) {
+      linksData.splice(i,1);
+    } else {
+      i++;
+    }
+  }
+
   update();
 }
 
