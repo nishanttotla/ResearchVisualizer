@@ -10,8 +10,12 @@ function findNodeIndex(id) {
 // function to add a node, assumes it does not already exist
 // requires a full node object
 function addNode(newnode) {
-  nodesData.push(newnode);
-  update();
+  if(findNodeIndex(newnode.id) > -1) {
+    alert("Node already exists!");
+  } else {
+    nodesData.push(newnode);
+    update();
+  }
 }
 
 // function to remove a node by id, also removes incident edges
@@ -38,6 +42,7 @@ function removeNode(nodeId) {
 // the 'newlink' argument is specified using ids of the objects that the link is incident upon
 // the ids are used to retrieve the indices of the two objects in the node list
 // this must be done because force needs references (objects or indices) to relevant nodes
+// FIX : Use adjacency list to find if the link exists faster
 function addLink(newlink) {
   var index1 = findNodeIndex(newlink.source);
   var index2 = findNodeIndex(newlink.target);
