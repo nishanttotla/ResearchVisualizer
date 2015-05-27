@@ -26,6 +26,13 @@ D3 references:
 11. http://knowledgestockpile.blogspot.com/2012/01/understanding-selectall-data-enter.html
 12. http://bost.ocks.org/mike/nest/
 
+Mongo DB references
+1. http://docs.mongodb.org/manual/
+2. http://docs.mongodb.org/getting-started/node/
+3. http://docs.mongodb.org/ecosystem/tools/http-interfaces/
+4. http://blog.zenika.com/index.php?post/2011/04/10/NodeJS
+5. CouchDB
+
 Dataset references:
 1. http://aminer.org/billboard/citation
 2. https://snap.stanford.edu/data/#citnets
