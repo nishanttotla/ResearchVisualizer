@@ -29,9 +29,9 @@ Running locally:
 Open a terminal and cd to the project directory. Then start a local server. A simply python server should suffice: python -m SimpleHTTPServer 8888
 
 Then open your browser and go to
-localhost:8888
+localhost:8888/publications.html
 
-This will open the index.html visualization.
+This will open the primary publications visualization.
 
 Dependencies:
 This tool uses the following Javascript libraries:
