@@ -26,7 +26,8 @@ MongoClient.connect(url, function(err, db) {
   var stream = require('stream');
 
   // interfaces for file streams
-  var instream = fs.createReadStream('soft-eng-data.txt');
+  var instream = fs.createReadStream('publications-data.txt');
+  // var instream = fs.createReadStream('soft-eng-data.txt');
   var outstream = new stream;
   var rl = readline.createInterface(instream, outstream);
 
@@ -43,14 +44,14 @@ MongoClient.connect(url, function(err, db) {
       currPub['venue'] = line.substring(2);
     } else if(line[1] == 'i') { // id
       currPub['id'] = parseInt(line.substring(6));
-    } else if(line[1] == '%' && line != '#%') { // citation
+    } else if(line[1] == '%' && line.trim() != '#%') { // citation
       citations.push(parseInt(line.substring(2)));
-    } else if(line[1] == '!') {
+    } else if(line[1] == '!') { // finish, ignore abstract
       currPub['citations'] = citations; // record all citations
 
       // add record to database
       insertDocument(db, currPub, function() {
-        console.log("Insert document callback executing!");
+        // console.log("Insert document callback executing!");
       });
       currPub = {};
       citations = [];

@@ -3,7 +3,7 @@ IMMEDIATE TASKS:
 1. Finalize a proper API for updating the graph
 2. Find a way to retrieve abstracts/keywords
 3. Node ids can't be 0-n anymore
-4. Load data into database (better to maintain two tables - pubs and citations for easy citation search)
+4. Create a table to keep track of citations
 5. Tooltip for publication
 
 IMPROVEMENTS:
