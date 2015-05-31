@@ -3,8 +3,8 @@ IMMEDIATE TASKS:
 1. Finalize a proper API for updating the graph
 2. Find a way to retrieve abstracts/keywords
 3. Node ids can't be 0-n anymore
-4. Create a table to keep track of citations
-5. Tooltip for publication
+4. Tooltip for publication
+5. Use async to serialize node js tasks
 
 IMPROVEMENTS:
 0. All variables and functions meant to be used globally must start with a capital letter
