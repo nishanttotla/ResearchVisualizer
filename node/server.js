@@ -12,11 +12,14 @@ const PORT = 8001;
 
 var retObjArray = [];
 
-var findPublications = function(db, id, callback) {
+var findPublications1 = function(db, id, callback) {
    var cursor = db.collection('publications').find({"id":id});
-   console.log("query done!")
-   var ret = cursor.toArray();
-   callback(ret);
+};
+
+var findPublications = function(db, id, callback) {
+  db.collection('publications', function(err, collection) {
+    collection.find({"id":id}).toArray(callback);
+  });
 };
 
 var server = http.createServer(function(request, response){
@@ -29,26 +32,35 @@ var server = http.createServer(function(request, response){
     console.log(request.url);
     var idRequested = parseInt(queryObject.id);
 
-    MongoClient.connect(dbUrl, function(err, db) {
-      assert.equal(null, err);
-      console.log("Opened database connection!")
-      findPublications(db, idRequested, function(ret) {
-          console.log("Closing database connection!");
-          db.close();
-          retObjArray = ret;
-      });
+    async.series(
+      [function(callback) { // connect to and query database
+        MongoClient.connect(dbUrl, function(err, db) {
+            assert.equal(null, err);
+            console.log("Opened database connection!")
+            findPublications(db, idRequested, function(err, ret) {
+              console.log("Query done!");
+              // var ret = cursor.toArray();
+              console.log("Closing database connection!");
+              db.close();
+              retObjArray = ret;
+              callback(null, null);
+            });
+        });
+      },
+      function(callback) { // process the obtained response
+        retObj = retObjArray[0];
+        retObjArray = [];
+        callback(null, null);
+      }],
+      function(err, results) {
+        // send response if no error reported
+        console.log("Database queried and response created");
+            response.writeHead(200, {'Content-Type': 'application/json'});
+        if(retObj != null) {
+          response.write(JSON.stringify(retObj));
+        }
+        response.end();
     });
-
-    // create response
-    retObj = retObjArray[0];
-
-    retObjArray = [];
-
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    if(retObj != null) {
-      response.write(JSON.stringify(retObj));
-    }
-    response.end();
   }
 });
 
