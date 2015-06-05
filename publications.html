@@ -168,11 +168,47 @@ text {
     }
   }
 
+  // querying data from server
+  // function queryData() {
+  //   var theUrl = 'http://localhost:8001/?id=11112';
+  //   var xmlHttp = new XMLHttpRequest();
+  //   xmlHttp.open( "GET", theUrl, false );
+  //   xmlHttp.send( null );
+  //   return xmlHttp.responseText;
+  // }
+
+  var HttpClient = function() {
+      this.get = function(aUrl, aCallback) {
+          var anHttpRequest = new XMLHttpRequest();
+          anHttpRequest.onreadystatechange = function() {
+              if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                  aCallback(anHttpRequest.responseText);
+          }
+
+          anHttpRequest.open( "GET", aUrl, true );
+          anHttpRequest.send( null );
+      }
+  }
+
+  function retrieveRandomNode() {
+    var baseUrl = 'http://localhost:8001/?id=';
+    var id = Math.floor(Math.random() * (1000000 - 1)) + 1;
+    var url = baseUrl + id;
+
+    aClient = new HttpClient();
+    aClient.get(url, function(response) {
+    var obj = JSON.parse(response);
+    addNode(obj);
+    console.log(obj);
+    });
+  }
+
 </script>
 
 <button onclick="resetSelections()">Clear</button>
 <button onclick="addSampleNode()">Add Sample Node</button>
 <button onclick="addSampleLink()">Add Sample Link</button>
+<button onclick="retrieveRandomNode()">Add Random Node</button>
 
 </body>
 </html>

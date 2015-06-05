@@ -12,10 +12,6 @@ const PORT = 8001;
 
 var retObjArray = [];
 
-var findPublications1 = function(db, id, callback) {
-   var cursor = db.collection('publications').find({"id":id});
-};
-
 var findPublications = function(db, id, callback) {
   db.collection('publications', function(err, collection) {
     collection.find({"id":id}).toArray(callback);
@@ -39,7 +35,6 @@ var server = http.createServer(function(request, response){
             console.log("Opened database connection!")
             findPublications(db, idRequested, function(err, ret) {
               console.log("Query done!");
-              // var ret = cursor.toArray();
               console.log("Closing database connection!");
               db.close();
               retObjArray = ret;
@@ -55,7 +50,8 @@ var server = http.createServer(function(request, response){
       function(err, results) {
         // send response if no error reported
         console.log("Database queried and response created");
-            response.writeHead(200, {'Content-Type': 'application/json'});
+            response.writeHead(200, {'Content-Type': 'application/json',
+                                     'Access-Control-Allow-Origin' : '*'});
         if(retObj != null) {
           response.write(JSON.stringify(retObj));
         }
