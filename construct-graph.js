@@ -2,6 +2,7 @@
  */
 
 // function to search for a node, returns index
+// FIX : Should use force.nodes() instead of NodesData?
 function findNodeIndex(id) {
   var ids = _.map(NodesData, function(n) { return n.id; });
   return ids.indexOf(id);
@@ -76,7 +77,7 @@ function update() {
   var enterNodes = newNodes.enter()
                     .append("g")
                     .attr("class", "node")
-                    .on("click", clickEvent)
+                    .on("click", retrieveCitations)
                     .call(Force.drag);
 
   enterNodes.append("circle")

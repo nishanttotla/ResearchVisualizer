@@ -4,7 +4,7 @@ IMMEDIATE TASKS:
 2. Find a way to retrieve abstracts/keywords
 3. Node ids can't be 0-n anymore
 4. Tooltip for publication
-5. Use async to serialize node js tasks
+5. Make sure async database calls don't cause the visualization to crash (add checks before adding new nodes or links etc.)
 
 IMPROVEMENTS:
 0. All variables and functions meant to be used globally must start with a capital letter

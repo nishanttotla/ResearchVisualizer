@@ -60,15 +60,15 @@ text {
   NodesData = [];
   LinksData = [];
 
-  var width = 960,
-    height = 500;
+  var width = 1400,
+    height = 1400;
 
   var Force = d3.layout.force()
     .nodes(NodesData)
     .links(LinksData)
     .size([width, height])
-    .linkDistance(80)
-    .charge(-400)
+    .linkDistance(100)
+    .charge(-500)
     .on("tick", tick)
     .start();
 
@@ -102,7 +102,7 @@ text {
     .data(Force.nodes())
     .enter().append("g")
     .attr("class", "node")
-    .on("click", clickEvent)
+    .on("click", retrieveCitations)
     .call(Force.drag);
 
   // add the node circles
@@ -190,15 +190,47 @@ text {
       }
   }
 
-  function retrieveRandomNode() {
+  // add all links for newly added node
+  // the relevant node must be newly added and it's links not present yet
+  function addAllLinks(n) {
+    var nodes = Force.nodes();
+    var additionalLinks = [];
+    // add links for nodes that cite this id, and nodes that id cites
+    for(var i=0; i<nodes.length; i++) {
+      if(nodes[i].citations.indexOf(n.id) > -1) {
+        additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":1});
+      }
+      if(n.citations.indexOf(nodes[i].id) > -1) {
+        additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":1});
+      }
+    }
+    // add all links one by one
+    for(var i=0; i<additionalLinks.length; i++) {
+      addLink(additionalLinks[i]);
+    }
+  }
+
+  function retrieveCitations() {
+    var baseUrl = 'http://localhost:8001/?id=';
+    var citations = this.__data__.citations;
+    for(var i=0; i<citations.length; i++) {
+      retrieveNode(baseUrl + citations[i]);
+    }
+  }
+
+  function generateRandomUrl() {
     var baseUrl = 'http://localhost:8001/?id=';
     var id = Math.floor(Math.random() * (1000000 - 1)) + 1;
     var url = baseUrl + id;
+    return url;
+  }
 
+  function retrieveNode(url) {
     aClient = new HttpClient();
     aClient.get(url, function(response) {
     var obj = JSON.parse(response);
     addNode(obj);
+    addAllLinks(obj);
     console.log(obj);
     });
   }
@@ -208,7 +240,7 @@ text {
 <button onclick="resetSelections()">Clear</button>
 <button onclick="addSampleNode()">Add Sample Node</button>
 <button onclick="addSampleLink()">Add Sample Link</button>
-<button onclick="retrieveRandomNode()">Add Random Node</button>
+<button onclick="retrieveNode(generateRandomUrl())">Add Random Node</button>
 
 </body>
 </html>
