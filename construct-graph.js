@@ -77,7 +77,7 @@ function update() {
   var enterNodes = newNodes.enter()
                     .append("g")
                     .attr("class", "node")
-                    .on("click", retrieveCitations)
+                    .on("click", clickEvent)
                     .call(Force.drag);
 
   enterNodes.append("circle")

@@ -67,8 +67,8 @@ text {
     .nodes(NodesData)
     .links(LinksData)
     .size([width, height])
-    .linkDistance(100)
-    .charge(-500)
+    .linkDistance(200)
+    .charge(-2000)
     .on("tick", tick)
     .start();
 
@@ -102,7 +102,7 @@ text {
     .data(Force.nodes())
     .enter().append("g")
     .attr("class", "node")
-    .on("click", retrieveCitations)
+    .on("click", clickEvent)
     .call(Force.drag);
 
   // add the node circles
@@ -210,28 +210,34 @@ text {
     }
   }
 
-  function retrieveCitations() {
-    var baseUrl = 'http://localhost:8001/?id=';
-    var citations = this.__data__.citations;
+  // function assumes id is present in the current graph
+  function retrieveCitations(id) {
+    var index = findNodeIndex(id);
+    var citations = Force.nodes()[index].citations;
     for(var i=0; i<citations.length; i++) {
-      retrieveNode(baseUrl + citations[i]);
+      retrieveNode(citations[i]);
     }
   }
 
-  function generateRandomUrl() {
-    var baseUrl = 'http://localhost:8001/?id=';
+  function generateRandomId() {
+    // 1118637 - interesting test case
     var id = Math.floor(Math.random() * (1000000 - 1)) + 1;
-    var url = baseUrl + id;
-    return url;
+    return id;
   }
 
-  function retrieveNode(url) {
+  function retrieveNode(id) {
     aClient = new HttpClient();
+    var baseUrl = 'http://localhost:8001/?id=';
+    var url = baseUrl + id;
     aClient.get(url, function(response) {
+    if(response == null || response == '') {
+      console.log("Paper id " + id + " not found.");
+      return;
+    }
     var obj = JSON.parse(response);
+    console.log("Paper id " + id + " retrieved.");
     addNode(obj);
     addAllLinks(obj);
-    console.log(obj);
     });
   }
 
@@ -240,7 +246,7 @@ text {
 <button onclick="resetSelections()">Clear</button>
 <button onclick="addSampleNode()">Add Sample Node</button>
 <button onclick="addSampleLink()">Add Sample Link</button>
-<button onclick="retrieveNode(generateRandomUrl())">Add Random Node</button>
+<button onclick="retrieveNode(generateRandomId())">Add Random Node</button>
 
 </body>
 </html>

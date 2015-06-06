@@ -5,6 +5,8 @@ IMMEDIATE TASKS:
 3. Node ids can't be 0-n anymore
 4. Tooltip for publication
 5. Make sure async database calls don't cause the visualization to crash (add checks before adding new nodes or links etc.)
+6. Consider making a queue for user requests, just for safety and determinism
+7. Debug syntax error
 
 IMPROVEMENTS:
 0. All variables and functions meant to be used globally must start with a capital letter
