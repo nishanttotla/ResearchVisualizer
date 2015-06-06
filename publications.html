@@ -30,33 +30,6 @@ text {
 </style>
 <body>
 <script>
-  // some temporary test data
-  NodesData1 = [
-    {"id":0,"title":"Scala","authors":["Jack","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2013},
-    {"id":1,"title":"C++","authors":["Kitty"],"abstract":"","keywords":[],"type":0,"venue":"PLDI","year":2012},
-    {"id":2,"title":"Haskell","authors":["Kitty","Mike"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2011},
-    {"id":3,"title":"Java","authors":["Vikas","Jack","Kitty"],"abstract":"","keywords":[],"type":0,"venue":"PLDI","year":2012},
-    {"id":4,"title":"Python","authors":["Kitty","Alex"],"abstract":"","keywords":[],"type":0,"venue":"POPL","year":2013},
-    {"id":5,"title":"Javascript","authors":["Vikas","Jack","Alex"],"abstract":"","keywords":[],"type":1,"venue":"ACM","year":2014},
-    {"id":6,"title":"Ocaml","authors":["Kitty","Vikas"],"abstract":"","keywords":[],"type":1,"venue":"ACM","year":2010},
-    {"id":7,"title":"Ada","authors":["Kitty","Vikas"],"abstract":"","keywords":[],"type":1,"venue":"ACM","year":2015},
-    {"id":8,"title":"OOK","authors":["Kitty","Vikas"],"abstract":"","keywords":[],"type":0,"venue":"ACM","year":2013}
-  ];
-
-  LinksData1 = [
-    {"source":0,"target":5,"value":1.2},
-    {"source":1,"target":5,"value":1.3},
-    {"source":4,"target":5,"value":0.4},
-    {"source":2,"target":1,"value":0.6},
-    {"source":2,"target":3,"value":0.7},
-    {"source":2,"target":4,"value":0.7},
-    {"source":6,"target":5,"value":0.7},
-    {"source":6,"target":0,"value":0.7},
-    {"source":6,"target":1,"value":0.7},
-    {"source":4,"target":7,"value":0.7},
-    {"source":8,"target":7,"value":0.7}
-  ];
-
   NodesData = [];
   LinksData = [];
 
@@ -148,35 +121,7 @@ text {
         return "translate(" + d.x + "," + d.y + ")"; });
   }
 
-  var sampleNodesAdded=0;
-  var sampleLinksAdded = 0;
-  function addSampleNode() {
-    if(sampleNodesAdded < NodesData1.length) {
-      addNode(NodesData1[sampleNodesAdded]);
-      sampleNodesAdded++;
-    } else {
-      alert("Sample data set exhausted!");
-    }
-  }
-
-  function addSampleLink() {
-    if(sampleLinksAdded < LinksData1.length) {
-      addLink(LinksData1[sampleLinksAdded]);
-      sampleLinksAdded++;
-    } else {
-      alert("Sample data set exhausted!");
-    }
-  }
-
   // querying data from server
-  // function queryData() {
-  //   var theUrl = 'http://localhost:8001/?id=11112';
-  //   var xmlHttp = new XMLHttpRequest();
-  //   xmlHttp.open( "GET", theUrl, false );
-  //   xmlHttp.send( null );
-  //   return xmlHttp.responseText;
-  // }
-
   var HttpClient = function() {
       this.get = function(aUrl, aCallback) {
           var anHttpRequest = new XMLHttpRequest();
@@ -243,9 +188,7 @@ text {
 
 </script>
 
-<button onclick="resetSelections()">Clear</button>
-<button onclick="addSampleNode()">Add Sample Node</button>
-<button onclick="addSampleLink()">Add Sample Link</button>
+<button onclick="resetSelections()">Clear Selection</button>
 <button onclick="retrieveNode(generateRandomId())">Add Random Node</button>
 
 </body>

@@ -24,6 +24,8 @@ IDEAS:
 5. Characterize paths from source to target (by keyword etc.) to find which major ideas have flown along it
 6. Are there intersting sub-structures in the graph (like number of paths from source to target mean something?)
 7. Find influential nodes (given search keywords etc.)
+8. Add a list of nodes that updates as more papers are added to the graph
+9. Add a search box?
 
 LONG TERM:
 1. How will the input data be constructed?
