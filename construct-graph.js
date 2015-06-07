@@ -93,3 +93,52 @@ function update() {
 
   Force.start();
 }
+
+// function to compute similarity between nodes, independent of whether nodes are connected
+// useful for computing edge weight if nodes are connected
+function nodeSimilarity(n1, n2) {
+  // author similarity score - HIGH priority
+  // more common authors and fewer authors are better
+  var authors1 = n1.authors,
+      authors2 = n2.authors,
+      commonAuthors = _.intersection(authors1, authors2);
+  var authorsScore = (commonAuthors.length * commonAuthors.length)/(authors1.length * authors2.length);
+
+  // citation similarity score - MODERATE priority
+  var citations1 = n1.citations,
+      citations2 = n2.citations,
+      commonCitations = _.intersection(citations1, citations2);
+  var citationsScore = 0;
+  if(citations1.length > 0 && citations2.length > 0) {
+    citationsScore = (commonCitations.length * commonCitations.length)/(citations1.length * citations2.length);
+  }
+
+  // title similarity score - HIGH priority
+  var title1 = n1.title,
+      title2 = n2.title;
+  var titleScore = 0;
+
+  // venue similarity score - MODERATE/LOW priority
+  var venueScore = 0;
+  if(n1.venue == n2.venue) {
+    venueScore = 0.1;
+  }
+
+  // temporal proximity score - MODERATE/LOW priority
+  var year1 = n1.year;
+  var year2 = n2.year;
+  var yearDiff = Math.abs(year1-year2);
+  var yearDiffScore = 0;
+  if(yearDiff < 10) { // better to cite applications that are more recent
+    yearDiffScore = (10 - yearDiff)/10;
+  }
+
+  // combine everything
+  var authorsWeight = 1.0,
+      citationsWeight = 1.0,
+      titleWeight = 2.0,
+      venueWeight = 0.5,
+      yearDiffWeight = 0.5;
+  return authorsWeight*authorsScore + citationsWeight*citationsScore + titleWeight*titleScore +
+         venueWeight*venueScore + yearDiffWeight*yearDiffScore;
+}
