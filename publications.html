@@ -7,6 +7,7 @@
 <script src="utils/root-publications.js"></script>
 <script src="utils/graph-traversal.js"></script>
 <script src="construct-graph.js"></script>
+<script src="data-relationships.js"></script>
 <style>
 
 path.link {
@@ -33,8 +34,8 @@ text {
   NodesData = [];
   LinksData = [];
 
-  var width = 1400,
-    height = 1400;
+  var width = 2000,
+    height = 2000;
 
   var Force = d3.layout.force()
     .nodes(NodesData)
@@ -68,7 +69,8 @@ text {
     .data(Force.links())
     .enter().append("path")
     .attr("class", "link")
-    .attr("marker-mid", "url(#end)");
+    .attr("marker-mid", "url(#end)")
+    .style("stroke-width", function(d) { return d.value; });
 
   // define the nodes
   var node = Svg.selectAll(".node")
@@ -143,10 +145,10 @@ text {
     // add links for nodes that cite this id, and nodes that id cites
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].citations.indexOf(n.id) > -1) {
-        additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":1});
+        additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":nodeSimilarity(n, nodes[i])});
       }
       if(n.citations.indexOf(nodes[i].id) > -1) {
-        additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":1});
+        additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":nodeSimilarity(n, nodes[i])});
       }
     }
     // add all links one by one
@@ -166,6 +168,7 @@ text {
 
   function generateRandomId() {
     // 1118637 - interesting test case
+    // 451971 - intersting test case
     var id = Math.floor(Math.random() * (1000000 - 1)) + 1;
     return id;
   }
@@ -175,14 +178,14 @@ text {
     var baseUrl = 'http://localhost:8001/?id=';
     var url = baseUrl + id;
     aClient.get(url, function(response) {
-    if(response == null || response == '') {
-      console.log("Paper id " + id + " not found.");
-      return;
-    }
-    var obj = JSON.parse(response);
-    console.log("Paper id " + id + " retrieved.");
-    addNode(obj);
-    addAllLinks(obj);
+      if(response == null || response == '') {
+        console.log("Paper id " + id + " not found.");
+        return;
+      }
+      var obj = JSON.parse(response);
+      console.log("Paper id " + id + " retrieved.");
+      addNode(obj);
+      addAllLinks(obj);
     });
   }
 

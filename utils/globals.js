@@ -118,5 +118,6 @@ var CommonWords = [
   "yet",
   "very",
   "every",
-  "many"
+  "many",
+  ""
 ];

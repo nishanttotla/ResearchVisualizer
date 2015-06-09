@@ -32,3 +32,14 @@ function colorByDistance(distances) {
       }
     });
 }
+
+function countOutgoing() {
+  var allNodes = Force.nodes();
+  allNodes = _.map(allNodes, function(n) { n['outgoing'] = 0; return n; });
+  var allLinks = Force.links();
+  for(var i=0; i<allLinks.length; i++) {
+    var srcId = allLinks[i].source.id;
+    allNodes[findNodeIndex(srcId)].outgoing++;
+  }
+  return allNodes;
+}

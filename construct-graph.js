@@ -66,7 +66,8 @@ function update() {
   var enterLinks = newLinks.enter()
                     .append("path")
                     .attr("class", "link")
-                    .attr("marker-mid", "url(#end)");
+                    .attr("marker-mid", "url(#end)")
+                    .style("stroke-width", function(d) { return d.value; });
 
   var exitLinks = newLinks.exit().remove();
 
