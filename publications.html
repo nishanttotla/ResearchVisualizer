@@ -175,7 +175,7 @@ text {
 
   function retrieveNode(id) {
     aClient = new HttpClient();
-    var baseUrl = 'http://localhost:8001/?id=';
+    var baseUrl = 'http://localhost:8001/?type=id&id=';
     var url = baseUrl + id;
     aClient.get(url, function(response) {
       if(response == null || response == '') {

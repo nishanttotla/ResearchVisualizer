@@ -18,6 +18,12 @@ var findPublications = function(db, id, callback) {
   });
 };
 
+var findPublicationsByAuthor = function(db, author, callback) {
+  db.collection('publications', function(err, collection) {
+    collection.find({"authors":author}).toArray(callback);
+  });
+}
+
 var server = http.createServer(function(request, response){
   // ignore the request for the favicon
   if(request.url != '/favicon.ico') {
@@ -26,20 +32,34 @@ var server = http.createServer(function(request, response){
     var queryObject = url.parse(request.url, true).query;
     console.log(queryObject);
     console.log(request.url);
-    var idRequested = parseInt(queryObject.id);
+    var requestType = queryObject.type;
+    console.log('Type: ' + requestType);
 
     async.series(
       [function(callback) { // connect to and query database
         MongoClient.connect(dbUrl, function(err, db) {
             assert.equal(null, err);
             console.log("Opened database connection!")
-            findPublications(db, idRequested, function(err, ret) {
-              console.log("Query done!");
-              console.log("Closing database connection!");
-              db.close();
-              retObjArray = ret;
-              callback(null, null);
-            });
+
+            ///////////////////////// QUERY PROCESSING CODE //////////////////////////////
+            if(requestType == 'id') {
+              var idRequested = parseInt(queryObject.id);
+              findPublications(db, idRequested, function(err, ret) {
+                console.log("Closing database connection!");
+                db.close();
+                retObjArray = ret;
+                callback(null, null);
+              });
+            } else if(requestType == 'author') {
+              var authorRequested = queryObject.author;
+              findPublicationsByAuthor(db, authorRequested, function(err, ret) {
+                console.log("Closing database connection!");
+                db.close();
+                retObjArray = ret;
+                callback(null, null);
+              });
+            }
+            //////////////////////////////////////////////////////////////////////////////
         });
       },
       function(callback) { // process the obtained response
@@ -48,6 +68,7 @@ var server = http.createServer(function(request, response){
         callback(null, null);
       }],
       function(err, results) {
+        assert.equal(null, err);
         // send response if no error reported
         console.log("Database queried and response created");
             response.writeHead(200, {'Content-Type': 'application/json',
