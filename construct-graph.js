@@ -40,6 +40,26 @@ function removeNode(nodeId) {
   update();
 }
 
+// add all links for newly added node
+// the relevant node must be newly added and it's links not present yet
+function addAllLinks(n) {
+  var nodes = Force.nodes();
+  var additionalLinks = [];
+  // add links for nodes that cite this id, and nodes that id cites
+  for(var i=0; i<nodes.length; i++) {
+    if(nodes[i].citations.indexOf(n.id) > -1) {
+      additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":nodeSimilarity(n, nodes[i])});
+    }
+    if(n.citations.indexOf(nodes[i].id) > -1) {
+      additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":nodeSimilarity(n, nodes[i])});
+    }
+  }
+  // add all links one by one
+  for(var i=0; i<additionalLinks.length; i++) {
+    addLink(additionalLinks[i]);
+  }
+}
+
 // the 'newlink' argument is specified using ids of the objects that the link is incident upon
 // the ids are used to retrieve the indices of the two objects in the node list
 // this must be done because force needs references (objects or indices) to relevant nodes

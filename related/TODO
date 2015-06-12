@@ -1,6 +1,6 @@
 IMMEDIATE TASKS:
 0. Check for duplicate links while adding links
-1.
+1. Figure out a way to return multiple items to the browser
 2. Experiment with straight arrows
 3. Slide bar for filtering 'weak' links
 4. Tooltip for publication
@@ -10,6 +10,7 @@ IMMEDIATE TASKS:
 8. Add a list of authors/conferences/years seen so far, updated dynamically
 9. Allow more controlled adding of citations (refine by conference etc)
 10. Reconsider what size and color of the nodes mean
+11. How to perform fuzzy queries on Mongo? (unnecessary for the initial version)
 
 IMPROVEMENTS:
 0. All variables and functions meant to be used globally must start with a capital letter

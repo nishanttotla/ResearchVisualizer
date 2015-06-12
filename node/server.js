@@ -63,7 +63,8 @@ var server = http.createServer(function(request, response){
         });
       },
       function(callback) { // process the obtained response
-        retObj = retObjArray[0];
+        // retObj = retObjArray[0];
+        retObj = retObjArray;
         retObjArray = [];
         callback(null, null);
       }],
@@ -74,6 +75,7 @@ var server = http.createServer(function(request, response){
             response.writeHead(200, {'Content-Type': 'application/json',
                                      'Access-Control-Allow-Origin' : '*'});
         if(retObj != null) {
+          retObj = {'list': retObj};
           response.write(JSON.stringify(retObj));
         }
         response.end();

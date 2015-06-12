@@ -137,32 +137,13 @@ text {
       }
   }
 
-  // add all links for newly added node
-  // the relevant node must be newly added and it's links not present yet
-  function addAllLinks(n) {
-    var nodes = Force.nodes();
-    var additionalLinks = [];
-    // add links for nodes that cite this id, and nodes that id cites
-    for(var i=0; i<nodes.length; i++) {
-      if(nodes[i].citations.indexOf(n.id) > -1) {
-        additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":nodeSimilarity(n, nodes[i])});
-      }
-      if(n.citations.indexOf(nodes[i].id) > -1) {
-        additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":nodeSimilarity(n, nodes[i])});
-      }
-    }
-    // add all links one by one
-    for(var i=0; i<additionalLinks.length; i++) {
-      addLink(additionalLinks[i]);
-    }
-  }
-
   // function assumes id is present in the current graph
+  // FIX : Retrieve all citations using a single request
   function retrieveCitations(id) {
     var index = findNodeIndex(id);
     var citations = Force.nodes()[index].citations;
     for(var i=0; i<citations.length; i++) {
-      retrieveNode(citations[i]);
+      retrieveNodeById(citations[i]);
     }
   }
 
@@ -173,26 +154,54 @@ text {
     return id;
   }
 
-  function retrieveNode(id) {
+  function retrieveNodeById(id) {
     aClient = new HttpClient();
     var baseUrl = 'http://localhost:8001/?type=id&id=';
     var url = baseUrl + id;
     aClient.get(url, function(response) {
       if(response == null || response == '') {
-        console.log("Paper id " + id + " not found.");
+        console.log("Bad response from server.");
         return;
       }
       var obj = JSON.parse(response);
+      if(obj.list == null || obj.list == '') {
+        console.log("Paper id " + id + " not found.");
+        return;
+      }
+      obj = obj.list[0]; // this list will have exactly one element
       console.log("Paper id " + id + " retrieved.");
       addNode(obj);
       addAllLinks(obj);
     });
   }
 
+  function retrieveNodesByAuthor(author) {
+    aClient = new HttpClient();
+    var baseUrl = 'http://localhost:8001/?type=author&author=';
+    var url = baseUrl + author; // spaces are automaticallyr replaced by %20
+    aClient.get(url, function(response) {
+      if(response == null || response == '') {
+        console.log("Bad response from server.");
+        return;
+      }
+      var obj = JSON.parse(response);
+      obj = obj.list;
+      if(obj == null || obj == '') {
+        console.log("Author " + author + " not found.");
+        return;
+      }
+      for(var i=0; i<obj.length; i++) {
+        console.log("Paper id " + obj[i].id + " retrieved.");
+        addNode(obj[i]);
+        addAllLinks(obj[i]);
+      }
+    });
+  }
+
 </script>
 
 <button onclick="resetSelections()">Clear Selection</button>
-<button onclick="retrieveNode(generateRandomId())">Add Random Node</button>
+<button onclick="retrieveNodeById(generateRandomId())">Add Random Node</button>
 
 </body>
 </html>
