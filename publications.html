@@ -31,8 +31,12 @@ text {
 </style>
 <body>
 <script>
-  NodesData = [];
-  LinksData = [];
+  HiddenNodesData = []; // hidden nodes
+  NodesData = []; // visible nodes
+  LinksData = []; // visible links
+
+  LinkThreshold = 0; // whenever a link is added, it's value has to be at least this much
+  PreviousLinkThreshold = 100; // practically infinite
 
   var width = 2000,
     height = 2000;
@@ -43,6 +47,7 @@ text {
     .size([width, height])
     .linkDistance(200)
     .charge(-2000)
+    .gravity(0.8)
     .on("tick", tick)
     .start();
 

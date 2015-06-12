@@ -11,6 +11,7 @@ IMMEDIATE TASKS:
 9. Allow more controlled adding of citations (refine by conference etc)
 10. Reconsider what size and color of the nodes mean
 11. How to perform fuzzy queries on Mongo? (unnecessary for the initial version)
+12. Figure out a way to filter nodes/edges from graph without deleting them
 
 IMPROVEMENTS:
 0. All variables and functions meant to be used globally must start with a capital letter

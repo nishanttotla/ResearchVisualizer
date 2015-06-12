@@ -8,11 +8,17 @@ function findNodeIndex(id) {
   return ids.indexOf(id);
 }
 
+function findHiddenNodeIndex(id) {
+  var ids = _.map(HiddenNodesData, function(n) { return n.id; });
+  return ids.indexOf(id);
+}
+
 // function to add a node, assumes it does not already exist
 // requires a full node object
 function addNode(newnode) {
   if(findNodeIndex(newnode.id) > -1) {
     alert("Node already exists!");
+    return;
   } else {
     NodesData.push(newnode);
     update();
@@ -26,6 +32,7 @@ function removeNode(nodeId) {
     NodesData.splice(index, 1);
   } else {
     alert("Tried to remove non-existent node!");
+    return;
   }
   // remove incident edges
   var i=0;
@@ -47,11 +54,14 @@ function addAllLinks(n) {
   var additionalLinks = [];
   // add links for nodes that cite this id, and nodes that id cites
   for(var i=0; i<nodes.length; i++) {
-    if(nodes[i].citations.indexOf(n.id) > -1) {
-      additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":nodeSimilarity(n, nodes[i])});
-    }
-    if(n.citations.indexOf(nodes[i].id) > -1) {
-      additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":nodeSimilarity(n, nodes[i])});
+    var sim = nodeSimilarity(n, nodes[i]);
+    if(sim >= LinkThreshold) {
+      if(nodes[i].citations.indexOf(n.id) > -1) {
+        additionalLinks.push({"source":n.id, "target":nodes[i].id, "value":sim});
+      }
+      if(n.citations.indexOf(nodes[i].id) > -1) {
+        additionalLinks.push({"source":nodes[i].id, "target":n.id, "value":sim});
+      }
     }
   }
   // add all links one by one
@@ -63,7 +73,7 @@ function addAllLinks(n) {
 // the 'newlink' argument is specified using ids of the objects that the link is incident upon
 // the ids are used to retrieve the indices of the two objects in the node list
 // this must be done because force needs references (objects or indices) to relevant nodes
-// FIX : Use adjacency list to find if the link exists faster
+// FIX : check if link already exists
 function addLink(newlink) {
   var index1 = findNodeIndex(newlink.source);
   var index2 = findNodeIndex(newlink.target);
@@ -74,6 +84,7 @@ function addLink(newlink) {
     update();
   } else {
     alert("One or both nodes not in the graph!");
+    return;
   }
 }
 
@@ -113,4 +124,89 @@ function update() {
   var exitNodes = newNodes.exit().remove();
 
   Force.start();
+}
+
+// move node to hidden list, and delete all incident nodes
+function hideNode(nodeId) {
+  var index = findNodeIndex(nodeId);
+  if(index > -1) {
+    HiddenNodesData.push(NodesData.splice(index, 1)[0]);
+  } else {
+    alert("Node already invisible or does not exist!");
+    return;
+  }
+  // remove incident edges
+  var i=0;
+  while(i < LinksData.length) {
+    if(LinksData[i].source.id == nodeId || LinksData[i].target.id == nodeId) {
+      LinksData.splice(i,1);
+    } else {
+      i++;
+    }
+  }
+
+  update();
+}
+
+// show hidden nodes
+function showNode(nodeId) {
+  var index = findHiddenNodeIndex(nodeId);
+  var nodeToShow = null;
+  if(index > -1) {
+    nodeToShow = HiddenNodesData.splice(index, 1)[0];
+    NodesData.push(nodeToShow);
+  } else {
+    alert("Node already visible or does not exist!");
+    return;
+  }
+  // remove incident edges
+  // FIX : This will recompute edge weights, but that's a fair price to pay
+  // as opposed to the alternative, which would involve storing and searching over links
+  addAllLinks(nodeToShow);
+
+  update();
+}
+
+// update threshold
+function updateThreshold(val) {
+  PreviousLinkThreshold = LinkThreshold;
+  LinkThreshold = val;
+}
+
+// update graph based on new link threshold
+// if the threshold went up, then nothing more to do
+// if the threshold went down, then for each node, only add links that are
+// no less than the new threshold, but less than the old threshold
+function filterLinksByThreshold() {
+  if(LinkThreshold > PreviousLinkThreshold) { // some links must be removed
+    var i=0;
+    while(i < LinksData.length) {
+      if(LinksData[i].value < LinkThreshold) {
+        LinksData.splice(i,1);
+      } else {
+        i++;
+      }
+    }
+    update();
+  } else if(LinkThreshold < PreviousLinkThreshold) { // some links must be added
+    var nodes = Force.nodes();
+    var additionalLinks = [];
+    for(var i=0; i<nodes.length; i++) {
+      for(var j=i+1; j<nodes.length; j++) {
+        var sim = nodeSimilarity(nodes[i], nodes[j]);
+        if(sim >= LinkThreshold && sim < PreviousLinkThreshold) {
+          if(nodes[j].citations.indexOf(nodes[i].id) > -1) {
+            additionalLinks.push({"source":nodes[i].id, "target":nodes[j].id, "value":sim});
+          }
+          if(nodes[i].citations.indexOf(nodes[j].id) > -1) {
+            additionalLinks.push({"source":nodes[j].id, "target":nodes[i].id, "value":sim});
+          }
+        }
+      }
+    }
+    // add all links one by one
+    for(var i=0; i<additionalLinks.length; i++) {
+      addLink(additionalLinks[i]);
+    }
+  }
 }
