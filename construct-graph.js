@@ -171,12 +171,16 @@ function showNode(nodeId) {
 function updateThreshold(val) {
   PreviousLinkThreshold = LinkThreshold;
   LinkThreshold = val;
+  console.log('Updating, please wait...');
+  filterLinksByThreshold();
+  console.log('Done!');
 }
 
 // update graph based on new link threshold
 // if the threshold went up, then nothing more to do
 // if the threshold went down, then for each node, only add links that are
 // no less than the new threshold, but less than the old threshold
+// FIX : Reducing threshold is inefficient for large graphs right now
 function filterLinksByThreshold() {
   if(LinkThreshold > PreviousLinkThreshold) { // some links must be removed
     var i=0;

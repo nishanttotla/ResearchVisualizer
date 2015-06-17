@@ -22,6 +22,26 @@ var findPublicationsByAuthor = function(db, author, callback) {
   db.collection('publications', function(err, collection) {
     collection.find({"authors":author}).toArray(callback);
   });
+};
+
+var findPublicationsGeneralQuery = function(db, query, callback) {
+  db.collection('publications', function(err, collection) {
+    collection.find(query).toArray(callback);
+  });
+};
+
+function constructCleanQuery(query) {
+  var cleanQuery = {};
+  if(query.id != null && query.id != undefined) {
+    cleanQuery['id'] = parseInt(query.id);
+  }
+  if(query.author != null && query.author != undefined) {
+    cleanQuery['authors'] = query.author;
+  }
+  if(query.venue != null && query.venue != undefined) {
+    cleanQuery['venue'] = query.venue;
+  }
+  return cleanQuery;
 }
 
 var server = http.createServer(function(request, response){
@@ -53,6 +73,14 @@ var server = http.createServer(function(request, response){
             } else if(requestType == 'author') {
               var authorRequested = queryObject.author;
               findPublicationsByAuthor(db, authorRequested, function(err, ret) {
+                console.log("Closing database connection!");
+                db.close();
+                retObjArray = ret;
+                callback(null, null);
+              });
+            } else if(requestType == 'general') {
+              var cleanQuery = constructCleanQuery(queryObject);
+              findPublicationsGeneralQuery(db, cleanQuery, function(err, ret) {
                 console.log("Closing database connection!");
                 db.close();
                 retObjArray = ret;
